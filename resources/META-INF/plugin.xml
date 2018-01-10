@@ -24,15 +24,23 @@
   <depends>com.intellij.modules.lang</depends>
   -->
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-  </extensions>
+    <depends>com.intellij.modules.python</depends>
+
+
+<extensions defaultExtensionNs="Pythonid">
+
+</extensions>
+
+
 
   <actions>
-    <!-- Add your actions here -->
-    <action id="exportUDF" class="export.GenerateAction" text="ExportUdfAndInputData">
-      <add-to-group group-id="Maven.GenerateGroup" anchor="last"/>
-    </action>
+    <group id="MyPlugin.SampleMenu" text="_UDF Development" description="UDF Development">
+        <add-to-group group-id="MainMenu" relative-to-action="HelpMenu" anchor="before"/>
+        <action id="Myplugin.ImportUDF" class="export.ImportUDFs" text="Import UDFs" description="UDF Development Menu" />
+        <action id="Myplugin.ExportUDF" class="export.ExportUDFs" text="Export UDFs" description="UDF Development Menu" />
+        <action id="Myplugin.Settings" class="export.Settings" text="Settings" description="UDF Development Menu" />
+
+    </group>
   </actions>
 
 </idea-plugin>
