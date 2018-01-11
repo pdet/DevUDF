@@ -25,7 +25,7 @@ public class ImportUDFs extends AnAction {
         DialogBuilder builder = new DialogBuilder(getEventProject(event));
         builder.setCenterPanel(form);
         builder.setDimensionServiceKey("FrameSwitcherCloseProjects");
-        builder.setTitle("Settings");
+        builder.setTitle("Import");
         builder.removeAllActions();
         boolean isOk = builder.show() == DialogWrapper.OK_EXIT_CODE;
 
