@@ -33,6 +33,7 @@
 
 
 
+
   <actions>
     <group id="MyPlugin.SampleMenu" text="_UDF Development" description="UDF Development">
         <add-to-group group-id="MainMenu" relative-to-action="HelpMenu" anchor="before"/>
