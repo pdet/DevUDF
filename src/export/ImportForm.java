@@ -196,7 +196,9 @@ public class ImportForm extends javax.swing.JPanel {
             else
                 parameters+=  parameterList.get(i) + "): \n";
         }
-        String [] functionList = function.replaceAll("\\t","\t").split("\n");
+        function = function.replaceAll("\t\t","\t");
+        String [] functionList = function.replaceAll("  ","\t").split("\n");
+
 
         String python_udf = "import pickle \n \n \ndef " + functionName + parameters;
         for (int i = 1; i < functionList.length-1; i ++){

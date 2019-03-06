@@ -1,10 +1,23 @@
 package export;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
+
 /**
  *
  * @author holanda
  */
 public class ExportForm extends javax.swing.JPanel {
+    String hard_coded_path = "/Users/holanda/PycharmProjects/UDFDevelopment/";
 
     public ExportForm() {
         initComponents();
@@ -17,23 +30,44 @@ public class ExportForm extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        udfList = new javax.swing.JList<>();
+        exportButton = new javax.swing.JButton();
+        File dir = new File(hard_coded_path);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "mean", "mean_deviation", "square_root", "standard_deviation", "variance", " ", " ", " " };
+        File[] aux = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String filename) {
+                return filename.endsWith(".py");
+            }
+        });
+        String filesList [] = new String[aux.length];
+        for (int i = 0; i < aux.length; i ++){
+            filesList[i] = aux[i].getName();
+        }
+        udfList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = filesList;
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        udfList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(udfList);
 
-        jButton1.setText("Export");
-
-        jButton2.setText("Export All");
+        exportButton.setText("Export");
+        exportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    exportButtonActionPerformed(evt);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -42,10 +76,8 @@ public class ExportForm extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jButton1))
+                                                .addGap(121, 121, 121)
+                                                .addComponent(exportButton))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(17, 17, 17)
                                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -57,18 +89,90 @@ public class ExportForm extends javax.swing.JPanel {
                                 .addGap(15, 15, 15)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton1)
-                                        .addComponent(jButton2))
+                                .addComponent(exportButton)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>
 
 
     // Variables declaration - do not modify
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JButton exportButton;
+    private javax.swing.JList<String> udfList;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
+    private void exportPythonFunction(String functionName, List<String> python_function) throws SQLException {
+        Vector<String> inputParameterList = new Vector<String>();
+        Vector<String> inputParameterTypeList = new Vector<String>();
+
+        String parametersSQL = "SELECT args.name, args.type\n" +
+                "FROM args INNER JOIN functions ON args.func_id=functions.id\n" +
+                "WHERE functions.name=\'"+functionName+ "\' AND args.inout=1\n" +
+                "ORDER BY args.number;";
+        ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(parametersSQL);
+        for (int i = 0;  ConnectionGlobal.rs.next(); i++) {
+            inputParameterList.add(ConnectionGlobal.rs.getString(1).replaceAll("\'",""));
+            inputParameterTypeList.add(ConnectionGlobal.rs.getString(2).replaceAll("\'",""));
+
+        }
+        Vector<String> outputParameterList = new Vector<String>();
+        Vector<String> outputParameterTypeList = new Vector<String>();
+
+        parametersSQL = "SELECT args.name, args.type\n" +
+                "FROM args INNER JOIN functions ON args.func_id=functions.id\n" +
+                "WHERE functions.name=\'"+functionName+ "\' AND args.inout=0\n" +
+                "ORDER BY args.number;";
+        ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(parametersSQL);
+        for (int i = 0;  ConnectionGlobal.rs.next(); i++) {
+            outputParameterList.add(ConnectionGlobal.rs.getString(1).replaceAll("\'",""));
+            outputParameterTypeList.add(ConnectionGlobal.rs.getString(2).replaceAll("\'",""));
+
+        }
+        String final_UDF = "CREATE OR REPLACE FUNCTION " + functionName + "(";
+        for (int i = 0; i < inputParameterList.size(); i ++){
+            if (i < inputParameterList.size() - 1)
+                final_UDF += inputParameterList.get(i) + " " + inputParameterTypeList.get(i) + ",";
+            else
+                final_UDF += inputParameterList.get(i) + " " + inputParameterTypeList.get(i) + ") \n";
+        }
+        if (outputParameterList.size() == 1){
+            final_UDF += "RETURNS "+outputParameterTypeList.get(0)+" LANGUAGE PYTHON {";
+        }
+        else{
+            final_UDF += "RETURNS TABLE( "+outputParameterTypeList.get(0)+" LANGUAGE PYTHON {";
+            for (int i = 0; i < outputParameterList.size(); i ++){
+                if (i < inputParameterList.size() - 1)
+                    final_UDF += outputParameterList.get(i) + " " + outputParameterTypeList.get(i) + ",";
+                else
+                    final_UDF += outputParameterList.get(i) + " " + outputParameterTypeList.get(i) +") \n";
+            }
+            final_UDF += "LANGUAGE PYTHON {\n";
+
+        }
+        boolean udfthis = false;
+        for (int i = 0; i < python_function.size(); i ++){
+            if (!udfthis && python_function.get(i).contains(functionName))
+                udfthis = true;
+            if (udfthis){
+                final_UDF += python_function.get(i) + "\n";
+                if (python_function.get(i).contains("return"))
+                    break;
+            }
+        }
+        final_UDF+= "};";
+        ConnectionGlobal.st.executeUpdate(final_UDF);
+
+    }
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {
+        String functionName = udfList.getSelectedValue();
+        Path path = Paths.get(hard_coded_path+functionName);
+        functionName = functionName.replaceFirst(".py","");
+
+        List<String> python_function = Files.readAllLines(path);
+        exportPythonFunction(functionName,python_function);
+        JComponent comp = (JComponent) evt.getSource();
+        Window win = SwingUtilities.getWindowAncestor(comp);
+        win.dispose();
+    }
+
+
 }
