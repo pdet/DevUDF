@@ -1,7 +1,12 @@
 package export;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.sql.DriverManager;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Vector;
 
 /**
  *
@@ -26,6 +31,7 @@ public class ImportForm extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         udfList = new javax.swing.JList<>();
+        udfList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         importButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         sqlField = new javax.swing.JTextArea();
@@ -58,10 +64,24 @@ public class ImportForm extends javax.swing.JPanel {
         jScrollPane1.setViewportView(udfList);
 
         importButton.setText("Import");
+        importButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    importButtonActionPerformed(evt);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Dialog",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         sqlField.setColumns(20);
         sqlField.setRows(5);
-        sqlField.setText("SELECT id, mean_deviation(value)\n            , variance(value)\nFROM data\nWHERE value > 1000");
+        sqlField.setText("select mean_deviation (i)\n from integers;");
         jScrollPane2.setViewportView(sqlField);
 
         jLabel1.setText("SQL Query:");
@@ -119,4 +139,100 @@ public class ImportForm extends javax.swing.JPanel {
     private javax.swing.JTextArea sqlField;
     private javax.swing.JList<String> udfList;
     // End of variables declaration
+
+    private void importPythonData(int ftype, String SQLQuery, String functionName) throws IOException, SQLException {
+        String hard_coded_path = "/Users/holanda/PycharmProjects/UDFDevelopment/";
+        String returnType;
+        // Table Returning Function
+        if (ftype == 5)
+            returnType = "TABLE(s STRING)";
+        else
+            returnType = "STRING";
+
+        String exportParametersFunction  = "CREATE OR REPLACE FUNCTION export_parameters(*)\n" +
+                "RETURNS "+returnType+" LANGUAGE PYTHON\n" +
+                "{\n" +
+                "import inspect\n" +
+                "import pickle\n" +
+                "frame = inspect.currentframe();\n" +
+                "args, _, _, values = inspect.getargvalues(frame);\n" +
+                "dd = {x: values[x] for x in args};\n" +
+                "del dd['_conn']\n" +
+                "return pickle.dumps(dd);\n" +
+                "};";
+
+        if (SQLQuery.indexOf(functionName) == -1){
+            JOptionPane.showMessageDialog(new JFrame(), "Function not found in query!", "Dialog",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        SQLQuery = SQLQuery.replaceFirst(functionName,"export_parameters");
+
+        PrintWriter writer = new PrintWriter(hard_coded_path + functionName+ ".bin", "UTF-8");
+
+        ConnectionGlobal.st.executeUpdate(exportParametersFunction);
+        ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(SQLQuery);
+        ConnectionGlobal.rs.next();
+        writer.println(ConnectionGlobal.rs.getString(1));
+        writer.close();
+        ConnectionGlobal.st.executeUpdate("DROP FUNCTION export_parameters;");
+    }
+    private void importPythonFunction(String functionName, String function) throws IOException, SQLException {
+        String hard_coded_path = "/Users/holanda/PycharmProjects/UDFDevelopment/";
+        Vector<String> parameterList = new Vector<String>();
+        String parametersSQL = "SELECT args.name\n" +
+                "FROM args INNER JOIN functions ON args.func_id=functions.id\n" +
+                "WHERE functions.name=\'"+functionName+ "\' AND args.inout=1\n" +
+                "ORDER BY args.number;";
+        ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(parametersSQL);
+        for (int i = 0;  ConnectionGlobal.rs.next(); i++) {
+            parameterList.add(ConnectionGlobal.rs.getString(1).replaceAll("\'",""));
+        }
+        String parameters = "(";
+        for (int i = 0; i < parameterList.size(); i ++){
+            if(i != parameterList.size()-1)
+                parameters+= parameterList.get(i) + ",";
+            else
+                parameters+=  parameterList.get(i) + "): \n";
+        }
+        String [] functionList = function.replaceAll("\\t","\t").split("\n");
+
+        String python_udf = "import pickle \n \n \ndef " + functionName + parameters;
+        for (int i = 1; i < functionList.length-1; i ++){
+            python_udf+= "\t" + functionList[i] + "\n";
+        }
+        python_udf += "\n" + "input_parameters = pickle.load(open(\'";
+        python_udf += hard_coded_path + functionName +".bin\',\'rb\')) \n";
+        python_udf += functionName + '(';
+        for (int i = 0; i < parameterList.size(); i ++){
+            if (i < parameterList.size() - 1){
+                python_udf+="input_parameters[\'";
+                python_udf += "arg"+Integer.toString(i+1)  + "\'],";
+            }
+            else{
+                python_udf += "input_parameters[\'";
+                python_udf += "arg"+Integer.toString(i+1) + "\'])";
+            }
+        }
+        PrintWriter writer = new PrintWriter(hard_coded_path + functionName+ ".py", "UTF-8");
+        writer.println(python_udf);
+        writer.close();
+
+    }
+
+    private void importButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {
+        String sql = sqlField.getText();
+        String functionName = udfList.getSelectedValue();
+        String getFunctionTypeSQL = "SELECT func,type FROM functions WHERE name LIKE \'"+functionName +"\';";
+        ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(getFunctionTypeSQL);
+        ConnectionGlobal.rs.next();
+        String python_function = ConnectionGlobal.rs.getString(1);
+        int functionType = Integer.valueOf(ConnectionGlobal.rs.getString(2));
+        importPythonData(functionType,sql,functionName);
+        importPythonFunction(functionName,python_function);
+        JComponent comp = (JComponent) evt.getSource();
+        Window win = SwingUtilities.getWindowAncestor(comp);
+        win.dispose();
+    }
 }
