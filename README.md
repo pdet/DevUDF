@@ -15,6 +15,8 @@ The parameters required are the usual database client connection parameters (i.e
 After the devUDF plugin has been configured to connect to a running database server, the development process begins by importing the existing UDFs within the server into the development environment. 
 This is done through the "Import UDFs" window, shown below. 
 The developer has to select the function he wishes to import and to provide a problematic SQL query that uses said function.
+
+
 <img src="https://github.com/pholanda/DevUDF/blob/master/img/import.png"/>
 ### Exporting UDFs
 After the UDFs are imported, the code of the UDFs is exported from the database and imported into the IDE as a set of 
