@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
+import org.fife.ui.rtextarea.*;
+import org.fife.ui.rsyntaxtextarea.*;
 
 /**
  *
@@ -34,7 +36,9 @@ public class ImportForm extends javax.swing.JPanel {
         udfList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         importButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        sqlField = new javax.swing.JTextArea();
+        sqlField = new RSyntaxTextArea(20, 60);
+        sqlField.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
+        sqlField.setCodeFoldingEnabled(true);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         String[] udfOptStrings = new String[0];
@@ -136,7 +140,7 @@ public class ImportForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea sqlField;
+    private RSyntaxTextArea sqlField;
     private javax.swing.JList<String> udfList;
     // End of variables declaration
 
