@@ -9,6 +9,9 @@ import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Settings extends AnAction {
@@ -17,6 +20,14 @@ public class Settings extends AnAction {
     }
 
     public void actionPerformed(AnActionEvent event) {
+        String aux = event.getProject().getProjectFilePath();
+        aux = aux.replaceAll(".idea/misc.xml","");
+        aux+="src/";
+        if (!Files.exists( Paths.get(aux))) {
+            File dir = new File(aux);
+            dir.mkdir();
+        }
+        ConnectionGlobal.path = aux;
         final SettingsForm form = new SettingsForm();
         DialogBuilder builder = new DialogBuilder(getEventProject(event));
         builder.setCenterPanel(form);

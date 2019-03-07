@@ -85,7 +85,10 @@ public class ImportForm extends javax.swing.JPanel {
 
         sqlField.setColumns(20);
         sqlField.setRows(5);
-        sqlField.setText("select mean_deviation (i)\n from integers;");
+        if(ConnectionGlobal.SQL == null)
+            sqlField.setText("SELECT   \n FROM \n WHERE \n ;");
+        else
+            sqlField.setText(ConnectionGlobal.SQL);
         jScrollPane2.setViewportView(sqlField);
 
         jLabel1.setText("SQL Query:");
@@ -145,7 +148,6 @@ public class ImportForm extends javax.swing.JPanel {
     // End of variables declaration
 
     private void importPythonData(int ftype, String SQLQuery, String functionName) throws IOException, SQLException {
-        String hard_coded_path = "/Users/holanda/PycharmProjects/UDFDevelopment/";
         String returnType;
         // Table Returning Function
         if (ftype == 5)
@@ -173,7 +175,7 @@ public class ImportForm extends javax.swing.JPanel {
 
         SQLQuery = SQLQuery.replaceFirst(functionName,"export_parameters");
 
-        PrintWriter writer = new PrintWriter(hard_coded_path + functionName+ ".bin", "UTF-8");
+        PrintWriter writer = new PrintWriter(ConnectionGlobal.path + functionName+ ".bin", "UTF-8");
 
         ConnectionGlobal.st.executeUpdate(exportParametersFunction);
         ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(SQLQuery);
@@ -183,7 +185,6 @@ public class ImportForm extends javax.swing.JPanel {
         ConnectionGlobal.st.executeUpdate("DROP FUNCTION export_parameters;");
     }
     private void importPythonFunction(String functionName, String function) throws IOException, SQLException {
-        String hard_coded_path = "/Users/holanda/PycharmProjects/UDFDevelopment/";
         Vector<String> parameterList = new Vector<String>();
         String parametersSQL = "SELECT args.name\n" +
                 "FROM args INNER JOIN functions ON args.func_id=functions.id\n" +
@@ -209,7 +210,7 @@ public class ImportForm extends javax.swing.JPanel {
             python_udf+= "\t" + functionList[i] + "\n";
         }
         python_udf += "\n" + "input_parameters = pickle.load(open(\'";
-        python_udf += hard_coded_path + functionName +".bin\',\'rb\')) \n";
+        python_udf += ConnectionGlobal.path + functionName +".bin\',\'rb\')) \n";
         python_udf += functionName + '(';
         for (int i = 0; i < parameterList.size(); i ++){
             if (i < parameterList.size() - 1){
@@ -221,7 +222,7 @@ public class ImportForm extends javax.swing.JPanel {
                 python_udf += "arg"+Integer.toString(i+1) + "\'])";
             }
         }
-        PrintWriter writer = new PrintWriter(hard_coded_path + functionName+ ".py", "UTF-8");
+        PrintWriter writer = new PrintWriter(ConnectionGlobal.path + functionName+ ".py", "UTF-8");
         writer.println(python_udf);
         writer.close();
 
@@ -230,6 +231,7 @@ public class ImportForm extends javax.swing.JPanel {
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {
         String sql = sqlField.getText();
         String functionName = udfList.getSelectedValue();
+        ConnectionGlobal.SQL = sql;
         if(functionName == null){
             JOptionPane.showMessageDialog(new JFrame(), "Select a UDF!", "Dialog",
                     JOptionPane.ERROR_MESSAGE);

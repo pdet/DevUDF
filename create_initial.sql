@@ -11,7 +11,19 @@ RETURNS DOUBLE LANGUAGE PYTHON {
   return deviation;
 };
 
-CREATE TABLE integers(i INTEGER);
-INSERT INTO integers VALUES (10), (200), (33), (400), (55);
+DROP TABLE integers;
+CREATE TABLE integers(i INTEGER, j INTEGER);
+INSERT INTO integers VALUES (10,20), (200,300), (33,66), (400,900), (55,100);
 
-select mean_deviation (i) from integers;
+CREATE OR REPLACE FUNCTION dif_sum(column_1 INTEGER,column_2 INTEGER)
+RETURNS DOUBLE LANGUAGE PYTHON {
+  sum_1 = 0
+  sum_2 = 0
+  for i in range (0, len(column_1)):
+    sum_1 += column_1[i]
+    sum_2 += column_2[i]
+  dif = sum_2 - sum_1
+  return dif;
+};
+
+-- select mean_deviation (i) from integers;

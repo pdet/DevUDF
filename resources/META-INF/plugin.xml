@@ -1,28 +1,19 @@
 <idea-plugin>
-  <id>cwi.nl.UdebuggingF</id>
-  <name>Plugin display name here</name>
+  <id>cwi.nl.devUDF</id>
+  <name>devUDF</name>
   <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <vendor email="holanda@cwi.nl" url="http://www.cwi.nl">DA CWI</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      The devUDF plugin is developed for the PyCharm IDE and facilitates the use of advanced IDE features for development of MonetDB/Python UDFs.
+
+It allows developers to create, modify and test UDFs without leaving their IDE environment. All features of the IDE can be used to develop UDFs, including the sophisticated interactive debugger and VCS support.
     ]]></description>
 
-  <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
-    ]]>
-  </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
   <idea-version since-build="145.0"/>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
 
     <depends>com.intellij.modules.python</depends>
 
@@ -40,7 +31,6 @@
         <action id="Myplugin.ImportUDF" class="export.ImportUDFs" text="Import UDFs" description="UDF Development Menu" />
         <action id="Myplugin.ExportUDF" class="export.ExportUDFs" text="Export UDFs" description="UDF Development Menu" />
         <action id="Myplugin.Settings" class="export.Settings" text="Settings" description="UDF Development Menu" />
-
     </group>
   </actions>
 

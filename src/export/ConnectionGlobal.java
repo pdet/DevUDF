@@ -10,6 +10,8 @@ public class ConnectionGlobal {
     public static Connection con = null;
     public static Statement st = null;
     public static ResultSet rs = null;
+    public static String path;
+    public static String SQL;
 
 
 }

@@ -153,6 +153,7 @@ public class SettingsForm extends javax.swing.JPanel  {
         } catch (SQLException se) {
             JOptionPane.showMessageDialog(new JFrame(), se.getMessage(), "Dialog",
                     JOptionPane.ERROR_MESSAGE);
+            return;
         }
         JComponent comp = (JComponent) evt.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
