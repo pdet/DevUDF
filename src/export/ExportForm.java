@@ -164,14 +164,21 @@ public class ExportForm extends javax.swing.JPanel {
     }
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {
         String functionName = udfList.getSelectedValue();
-        Path path = Paths.get(hard_coded_path+functionName);
-        functionName = functionName.replaceFirst(".py","");
+        if(functionName.isEmpty()){
+            JOptionPane.showMessageDialog(new JFrame(), "Select a UDF!", "Dialog",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            Path path = Paths.get(hard_coded_path+functionName);
+            functionName = functionName.replaceFirst(".py","");
 
-        List<String> python_function = Files.readAllLines(path);
-        exportPythonFunction(functionName,python_function);
-        JComponent comp = (JComponent) evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
+            List<String> python_function = Files.readAllLines(path);
+            exportPythonFunction(functionName,python_function);
+            JComponent comp = (JComponent) evt.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
+        }
+
     }
 
 

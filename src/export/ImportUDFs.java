@@ -8,20 +8,28 @@ import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 
+import javax.swing.*;
+
 public class ImportUDFs extends AnAction {
     public ImportUDFs() {
         super("Text _Boxes");
     }
 
     public void actionPerformed(AnActionEvent event) {
-        final ImportForm form = new ImportForm();
+        if (ConnectionGlobal.con == null){
+            JOptionPane.showMessageDialog(new JFrame(), "Missing Database Connection!", "Dialog",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
-        DialogBuilder builder = new DialogBuilder(getEventProject(event));
-        builder.setCenterPanel(form);
-        builder.setDimensionServiceKey("FrameSwitcherCloseProjects");
-        builder.setTitle("Import");
-        builder.removeAllActions();
-        boolean isOk = builder.show() == DialogWrapper.OK_EXIT_CODE;
+        else {
+            final ImportForm form = new ImportForm();
+            DialogBuilder builder = new DialogBuilder(getEventProject(event));
+            builder.setCenterPanel(form);
+            builder.setDimensionServiceKey("FrameSwitcherCloseProjects");
+            builder.setTitle("Import");
+            builder.removeAllActions();
+            boolean isOk = builder.show() == DialogWrapper.OK_EXIT_CODE;
+        }
 
     }
 }

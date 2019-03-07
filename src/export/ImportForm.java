@@ -230,15 +230,21 @@ public class ImportForm extends javax.swing.JPanel {
     private void importButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {
         String sql = sqlField.getText();
         String functionName = udfList.getSelectedValue();
-        String getFunctionTypeSQL = "SELECT func,type FROM functions WHERE name LIKE \'"+functionName +"\';";
-        ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(getFunctionTypeSQL);
-        ConnectionGlobal.rs.next();
-        String python_function = ConnectionGlobal.rs.getString(1);
-        int functionType = Integer.valueOf(ConnectionGlobal.rs.getString(2));
-        importPythonData(functionType,sql,functionName);
-        importPythonFunction(functionName,python_function);
-        JComponent comp = (JComponent) evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
+        if(functionName == null){
+            JOptionPane.showMessageDialog(new JFrame(), "Select a UDF!", "Dialog",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            String getFunctionTypeSQL = "SELECT func,type FROM functions WHERE name LIKE \'" + functionName + "\';";
+            ConnectionGlobal.rs = ConnectionGlobal.st.executeQuery(getFunctionTypeSQL);
+            ConnectionGlobal.rs.next();
+            String python_function = ConnectionGlobal.rs.getString(1);
+            int functionType = Integer.valueOf(ConnectionGlobal.rs.getString(2));
+            importPythonData(functionType, sql, functionName);
+            importPythonFunction(functionName, python_function);
+            JComponent comp = (JComponent) evt.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
+        }
     }
 }

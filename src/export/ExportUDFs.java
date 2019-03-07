@@ -8,6 +8,8 @@ import com.intellij.openapi.ui.DialogBuilder;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 
+import javax.swing.*;
+
 public class ExportUDFs extends AnAction {
 
     public ExportUDFs() {
@@ -15,14 +17,20 @@ public class ExportUDFs extends AnAction {
     }
 
     public void actionPerformed(AnActionEvent event) {
-        final ExportForm form = new ExportForm();
+        if (ConnectionGlobal.con == null){
+            JOptionPane.showMessageDialog(new JFrame(), "Missing Database Connection!", "Dialog",
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
-        DialogBuilder builder = new DialogBuilder(getEventProject(event));
-        builder.setCenterPanel(form);
-        builder.setDimensionServiceKey("FrameSwitcherCloseProjects");
-        builder.setTitle("Export");
-        builder.removeAllActions();
-        boolean isOk = builder.show() == DialogWrapper.OK_EXIT_CODE;
+        else {
+            final ExportForm form = new ExportForm();
+            DialogBuilder builder = new DialogBuilder(getEventProject(event));
+            builder.setCenterPanel(form);
+            builder.setDimensionServiceKey("FrameSwitcherCloseProjects");
+            builder.setTitle("Export");
+            builder.removeAllActions();
+            boolean isOk = builder.show() == DialogWrapper.OK_EXIT_CODE;
+        }
 
     }
 }

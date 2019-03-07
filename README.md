@@ -5,12 +5,14 @@ It allows developers to create, modify and test UDFs without leaving their IDE e
 
 ## Usage
 The devUDF plugin can be accessed through the main menu of the IDE (See Figure below). In this menu, a submenu labeled "UDF Development" contains the three main aspects of the plugin. 
+<img src="https://github.com/pholanda/DevUDF/blob/master/img/main_menu.png" />
 
 ### Database Connection
 Initially, devUDF must be configured so it can connect to an existing database server. 
 This can be done through the settings window shown in the figure below 
 The parameters required are the usual database client connection parameters (i.e., host, port, database, user and password).
-<img src="https://github.com/pholanda/DevUDF/blob/master/img/main_menu.png" />
+<img src="https://github.com/pholanda/DevUDF/blob/master/img/settings.png" />
+
 ### Importing UDFs
 After the devUDF plugin has been configured to connect to a running database server, the development process begins by importing the existing UDFs within the server into the development environment. 
 This is done through the "Import UDFs" window, shown below. 
