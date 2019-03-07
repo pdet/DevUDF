@@ -11,6 +11,7 @@ The devUDF plugin can be accessed through the main menu of the IDE (See Figure b
 Initially, devUDF must be configured so it can connect to an existing database server. 
 This can be done through the settings window shown in the figure below 
 The parameters required are the usual database client connection parameters (i.e., host, port, database, user and password).
+
 <img src="https://github.com/pholanda/DevUDF/blob/master/img/settings.png" />
 
 ### Importing UDFs
