@@ -18,6 +18,7 @@ The developer has to select the function he wishes to import and to provide a pr
 
 
 <img src="https://github.com/pholanda/DevUDF/blob/master/img/import.png"/>
+
 ### Exporting UDFs
 After the UDFs are imported, the code of the UDFs is exported from the database and imported into the IDE as a set of 
 files in the current project (See below). 
