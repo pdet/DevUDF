@@ -29,6 +29,8 @@ public class ImportUDFs extends AnAction {
             builder.setTitle("Import");
             builder.removeAllActions();
             boolean isOk = builder.show() == DialogWrapper.OK_EXIT_CODE;
+            Project project = event.getData(PlatformDataKeys.PROJECT);
+            project.getBaseDir().refresh(false,true);
         }
 
     }

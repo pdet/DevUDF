@@ -137,28 +137,29 @@ public class ExportForm extends javax.swing.JPanel {
                 final_UDF += inputParameterList.get(i) + " " + inputParameterTypeList.get(i) + ") \n";
         }
         if (outputParameterList.size() == 1){
-            final_UDF += "RETURNS "+outputParameterTypeList.get(0)+" LANGUAGE PYTHON {";
+            final_UDF += "RETURNS "+outputParameterTypeList.get(0)+" LANGUAGE PYTHON { \n";
         }
         else{
-            final_UDF += "RETURNS TABLE( "+outputParameterTypeList.get(0)+" LANGUAGE PYTHON {";
+            final_UDF += "RETURNS TABLE( "+outputParameterTypeList.get(0)+" LANGUAGE PYTHON { \n";
             for (int i = 0; i < outputParameterList.size(); i ++){
                 if (i < inputParameterList.size() - 1)
                     final_UDF += outputParameterList.get(i) + " " + outputParameterTypeList.get(i) + ",";
                 else
                     final_UDF += outputParameterList.get(i) + " " + outputParameterTypeList.get(i) +") \n";
             }
-            final_UDF += "LANGUAGE PYTHON {\n";
+            final_UDF += "LANGUAGE PYTHON { \n";
 
         }
         boolean udfthis = false;
         for (int i = 0; i < python_function.size(); i ++){
-            if (!udfthis && python_function.get(i).contains(functionName))
-                udfthis = true;
             if (udfthis){
-                final_UDF += python_function.get(i) + "\n";
+                String aux = python_function.get(i).replaceFirst("    ","");
+                final_UDF += aux + "\n";
                 if (python_function.get(i).contains("return"))
                     break;
             }
+            if (!udfthis && python_function.get(i).contains(functionName))
+                udfthis = true;
         }
         final_UDF+= "};";
         ConnectionGlobal.st.executeUpdate(final_UDF);
@@ -167,8 +168,6 @@ public class ExportForm extends javax.swing.JPanel {
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {
         String functionName = udfList.getSelectedValue();
-//        Project project = evt.get
-//        ModuleRootManager.getInstance(this).getSourceRoots()
 
         if(functionName== null){
             JOptionPane.showMessageDialog(new JFrame(), "Select a UDF!", "Dialog",

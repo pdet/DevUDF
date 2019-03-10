@@ -201,21 +201,21 @@ public class ImportForm extends javax.swing.JPanel {
             else
                 parameters+=  parameterList.get(i) + "): \n";
         }
-        function = function.replaceAll("\t\t","\t");
-        String [] functionList = function.replaceAll("  ","\t").split("\n");
+        function = function.replaceAll("\t","    ");
+        String [] functionList = function.split("\n");
 
 
         String python_udf = "import pickle \n \n \ndef " + functionName + parameters;
         for (int i = 1; i < functionList.length-1; i ++){
-            python_udf+= "\t" + functionList[i] + "\n";
+            python_udf+= "    " + functionList[i] + "\n";
         }
-        python_udf += "\n" + "input_parameters = pickle.load(open(\'";
+        python_udf += "\n\n" + "input_parameters = pickle.load(open(\'";
         python_udf += ConnectionGlobal.path + functionName +".bin\',\'rb\')) \n";
         python_udf += functionName + '(';
         for (int i = 0; i < parameterList.size(); i ++){
             if (i < parameterList.size() - 1){
                 python_udf+="input_parameters[\'";
-                python_udf += "arg"+Integer.toString(i+1)  + "\'],";
+                python_udf += "arg"+Integer.toString(i+1)  + "\'], ";
             }
             else{
                 python_udf += "input_parameters[\'";
@@ -247,6 +247,7 @@ public class ImportForm extends javax.swing.JPanel {
             JComponent comp = (JComponent) evt.getSource();
             Window win = SwingUtilities.getWindowAncestor(comp);
             win.dispose();
+
         }
     }
 }
