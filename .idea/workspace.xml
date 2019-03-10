@@ -4,10 +4,9 @@
     <list default="true" id="b133ecd3-7bcf-4cad-a4ff-a4c7fbd19255" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/out/production/simplifiedudf/export/ImportForm.class" afterPath="$PROJECT_DIR$/out/production/simplifiedudf/export/ImportForm.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/simplifiedudf/export/ImportUDFs.class" afterPath="$PROJECT_DIR$/out/production/simplifiedudf/export/ImportUDFs.class" />
-      <change beforePath="$PROJECT_DIR$/src/export/ExportForm.java" afterPath="$PROJECT_DIR$/src/export/ExportForm.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/simplifiedudf/export/SettingsForm.class" afterPath="$PROJECT_DIR$/out/production/simplifiedudf/export/SettingsForm.class" />
       <change beforePath="$PROJECT_DIR$/src/export/ImportForm.java" afterPath="$PROJECT_DIR$/src/export/ImportForm.java" />
-      <change beforePath="$PROJECT_DIR$/src/export/ImportUDFs.java" afterPath="$PROJECT_DIR$/src/export/ImportUDFs.java" />
+      <change beforePath="$PROJECT_DIR$/src/export/SettingsForm.java" afterPath="$PROJECT_DIR$/src/export/SettingsForm.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,8 +56,8 @@
       <file leaf-file-name="SettingsForm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/export/SettingsForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="155" column="19" lean-forward="false" selection-start-line="155" selection-start-column="19" selection-end-line="155" selection-end-column="19" />
+            <state relative-caret-position="444">
+              <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#496#497#0" expanded="true" />
@@ -73,18 +72,18 @@
       <file leaf-file-name="create_initial.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/create_initial.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="17" column="69" lean-forward="true" selection-start-line="17" selection-start-column="69" selection-end-line="17" selection-end-column="69" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExportForm.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ExportForm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/export/ExportForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+            <state relative-caret-position="240">
+              <caret line="151" column="9" lean-forward="true" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#557#558#0" expanded="true" />
@@ -122,20 +121,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImportForm.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImportForm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/export/ImportForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="194" column="84" lean-forward="true" selection-start-line="194" selection-start-column="84" selection-end-line="194" selection-end-column="84" />
+            <state relative-caret-position="209">
+              <caret line="193" column="59" lean-forward="true" selection-start-line="193" selection-start-column="59" selection-end-line="193" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1552248057863" expanded="true" signature="1326:1391" ph="SELECT name functions" />
-                <marker date="1552248057863" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
-                <marker date="1552248057863" expanded="true" signature="8729:8953" ph="SELECT args.... args" />
-                <marker date="1552248057863" expanded="true" signature="11037:11084" ph="SELECT type functions" />
-                <marker date="1552248057863" expanded="true" signature="11037:11085" ph="SELECT type functions" />
-                <marker date="1552248057863" expanded="true" signature="11037:11087" ph="SELECT type functions" />
-                <marker date="1552248057863" expanded="true" signature="11037:11109" ph="SELECT type functions" />
+                <element signature="e#427#428#0" expanded="true" />
+                <element signature="e#459#460#0" expanded="true" />
+                <element signature="e#8685#8693#0" expanded="true" />
+                <marker date="1552255231758" expanded="true" signature="1326:1391" ph="SELECT name functions" />
+                <marker date="1552255231758" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
+                <marker date="1552255231758" expanded="true" signature="11050:11097" ph="SELECT type functions" />
+                <marker date="1552255231758" expanded="true" signature="11050:11098" ph="SELECT type functions" />
+                <marker date="1552255231758" expanded="true" signature="11050:11100" ph="SELECT type functions" />
+                <marker date="1552255231758" expanded="true" signature="11050:11122" ph="SELECT type functions" />
               </folding>
             </state>
           </provider>
@@ -173,6 +174,7 @@
       <find>but</find>
       <find>jCheckBox1</find>
       <find>path</find>
+      <find>scala</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -201,12 +203,12 @@
         <option value="$PROJECT_DIR$/src/export/UDFSources.java" />
         <option value="$PROJECT_DIR$/src/export/Settings.java" />
         <option value="$PROJECT_DIR$/src/export/ConnectionGlobal.java" />
-        <option value="$PROJECT_DIR$/src/export/SettingsForm.java" />
         <option value="$PROJECT_DIR$/create_initial.sql" />
         <option value="$PROJECT_DIR$/resources/META-INF/plugin.xml" />
         <option value="$PROJECT_DIR$/src/export/ImportUDFs.java" />
-        <option value="$PROJECT_DIR$/src/export/ImportForm.java" />
         <option value="$PROJECT_DIR$/src/export/ExportForm.java" />
+        <option value="$PROJECT_DIR$/src/export/SettingsForm.java" />
+        <option value="$PROJECT_DIR$/src/export/ImportForm.java" />
       </list>
     </option>
   </component>
@@ -442,8 +444,8 @@
     </configuration>
     <configuration name="Plugin" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="simplifiedudf" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
+      <option name="VM_PARAMETERS" value="-Xmx2048m -Xms512m -XX:MaxPermSize=500m -ea" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -479,12 +481,12 @@
       <workItem from="1551787588019" duration="24379000" />
       <workItem from="1551887480788" duration="18901000" />
       <workItem from="1551973618373" duration="767000" />
-      <workItem from="1552230952717" duration="5249000" />
+      <workItem from="1552230952717" duration="10883000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68662000" />
+    <option name="totallyTimeSpent" value="74296000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="23" width="1920" height="1057" extended-state="0" />
@@ -498,9 +500,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14137214" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35031185" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952183" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.65384614" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33887735" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29605964" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -601,13 +603,15 @@
           <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1552248057863" expanded="true" signature="1326:1391" ph="SELECT name functions" />
-            <marker date="1552248057863" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
-            <marker date="1552248057863" expanded="true" signature="8729:8953" ph="SELECT args.... args" />
-            <marker date="1552248057863" expanded="true" signature="11037:11084" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11085" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11087" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11109" ph="SELECT type functions" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#8685#8693#0" expanded="true" />
+            <marker date="1552255231758" expanded="true" signature="1326:1391" ph="SELECT name functions" />
+            <marker date="1552255231758" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
+            <marker date="1552255231758" expanded="true" signature="11050:11097" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11098" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11100" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11122" ph="SELECT type functions" />
           </folding>
         </state>
       </provider>
@@ -696,13 +700,15 @@
           <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1552248057863" expanded="true" signature="1326:1391" ph="SELECT name functions" />
-            <marker date="1552248057863" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
-            <marker date="1552248057863" expanded="true" signature="8729:8953" ph="SELECT args.... args" />
-            <marker date="1552248057863" expanded="true" signature="11037:11084" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11085" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11087" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11109" ph="SELECT type functions" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#8685#8693#0" expanded="true" />
+            <marker date="1552255231758" expanded="true" signature="1326:1391" ph="SELECT name functions" />
+            <marker date="1552255231758" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
+            <marker date="1552255231758" expanded="true" signature="11050:11097" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11098" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11100" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11122" ph="SELECT type functions" />
           </folding>
         </state>
       </provider>
@@ -925,22 +931,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/create_initial.sql">
+    <entry file="file://$PROJECT_DIR$/src/export/ExportForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/export/ImportUDFs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="70" lean-forward="true" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
+        <state relative-caret-position="240">
+          <caret line="151" column="9" lean-forward="true" selection-start-line="151" selection-start-column="9" selection-end-line="151" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#452#453#0" expanded="true" />
-            <element signature="e#488#489#0" expanded="true" />
+            <element signature="e#557#558#0" expanded="true" />
+            <element signature="e#589#590#0" expanded="true" />
+            <element signature="e#1198#1199#0" expanded="true" />
+            <element signature="e#1261#1262#0" expanded="true" />
+            <marker date="1552248936855" expanded="true" signature="4756:4990" ph="SELECT args.... args" />
+            <marker date="1552248936855" expanded="true" signature="5492:5726" ph="SELECT args.... args" />
           </folding>
         </state>
       </provider>
@@ -956,16 +958,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/export/SettingsForm.java">
+    <entry file="file://$PROJECT_DIR$/src/export/ImportUDFs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="155" column="19" lean-forward="false" selection-start-line="155" selection-start-column="19" selection-end-line="155" selection-end-column="19" />
+        <state relative-caret-position="465">
+          <caret line="31" column="70" lean-forward="true" selection-start-line="31" selection-start-column="70" selection-end-line="31" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#528#529#0" expanded="true" />
-            <element signature="e#1684#1685#0" expanded="true" />
-            <element signature="e#1746#1747#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#488#489#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -982,35 +982,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/export/ImportForm.java">
+    <entry file="file://$PROJECT_DIR$/create_initial.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="194" column="84" lean-forward="true" selection-start-line="194" selection-start-column="84" selection-end-line="194" selection-end-column="84" />
+        <state relative-caret-position="255">
+          <caret line="17" column="69" lean-forward="true" selection-start-line="17" selection-start-column="69" selection-end-line="17" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/export/SettingsForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1552248057863" expanded="true" signature="1326:1391" ph="SELECT name functions" />
-            <marker date="1552248057863" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
-            <marker date="1552248057863" expanded="true" signature="8729:8953" ph="SELECT args.... args" />
-            <marker date="1552248057863" expanded="true" signature="11037:11084" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11085" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11087" ph="SELECT type functions" />
-            <marker date="1552248057863" expanded="true" signature="11037:11109" ph="SELECT type functions" />
+            <element signature="e#496#497#0" expanded="true" />
+            <element signature="e#528#529#0" expanded="true" />
+            <element signature="e#1684#1685#0" expanded="true" />
+            <element signature="e#1746#1747#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/export/ExportForm.java">
+    <entry file="file://$PROJECT_DIR$/src/export/ImportForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="164" column="0" lean-forward="false" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+        <state relative-caret-position="209">
+          <caret line="193" column="59" lean-forward="true" selection-start-line="193" selection-start-column="59" selection-end-line="193" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#557#558#0" expanded="true" />
-            <element signature="e#589#590#0" expanded="true" />
-            <element signature="e#1198#1199#0" expanded="true" />
-            <element signature="e#1261#1262#0" expanded="true" />
-            <marker date="1552248936855" expanded="true" signature="4756:4990" ph="SELECT args.... args" />
-            <marker date="1552248936855" expanded="true" signature="5492:5726" ph="SELECT args.... args" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#8685#8693#0" expanded="true" />
+            <marker date="1552255231758" expanded="true" signature="1326:1391" ph="SELECT name functions" />
+            <marker date="1552255231758" expanded="true" signature="8729:8952" ph="SELECT args.... args" />
+            <marker date="1552255231758" expanded="true" signature="11050:11097" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11098" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11100" ph="SELECT type functions" />
+            <marker date="1552255231758" expanded="true" signature="11050:11122" ph="SELECT type functions" />
           </folding>
         </state>
       </provider>

@@ -147,7 +147,7 @@ public class SettingsForm extends javax.swing.JPanel  {
         // Attempt to connect
         try {
             String con_url = "jdbc:monetdb://"+ConnectionGlobal.host+":"+ ConnectionGlobal.port+"/"
-                    + ConnectionGlobal.database+"?so_timeout=10000&treat_clob_as_varchar=true";
+                    + ConnectionGlobal.database+"?treat_clob_as_varchar=true";
             ConnectionGlobal.con = DriverManager.getConnection(con_url, ConnectionGlobal.user, ConnectionGlobal.password);
             ConnectionGlobal.st = ConnectionGlobal.con.createStatement();
         } catch (SQLException se) {

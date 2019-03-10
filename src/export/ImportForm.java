@@ -205,7 +205,7 @@ public class ImportForm extends javax.swing.JPanel {
         String [] functionList = function.split("\n");
 
 
-        String python_udf = "import pickle \n \n \ndef " + functionName + parameters;
+        String python_udf = "import pickle \nimport numpy \n\n\ndef " + functionName + parameters;
         for (int i = 1; i < functionList.length-1; i ++){
             python_udf+= "    " + functionList[i] + "\n";
         }
