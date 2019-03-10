@@ -6,6 +6,8 @@ import java.io.*;
 import java.sql.DriverManager;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -150,10 +152,10 @@ public class ImportForm extends javax.swing.JPanel {
     private void importPythonData(int ftype, String SQLQuery, String functionName) throws IOException, SQLException {
         String returnType;
         // Table Returning Function
-        if (ftype == 5)
-            returnType = "TABLE(s STRING)";
-        else
-            returnType = "STRING";
+//        if (ftype == 5)
+//            returnType = "TABLE(s STRING)";
+//        else
+        returnType = "STRING";
 
         String exportParametersFunction  = "CREATE OR REPLACE FUNCTION export_parameters(*)\n" +
                 "RETURNS "+returnType+" LANGUAGE PYTHON\n" +
@@ -186,6 +188,11 @@ public class ImportForm extends javax.swing.JPanel {
     }
     private void importPythonFunction(String functionName, String function) throws IOException, SQLException {
         Vector<String> parameterList = new Vector<String>();
+        Map<String, String> column_arg_map = new HashMap<String, String>();
+        boolean loopBackQuery = false;
+        String bottom_function = "";
+        String top_function = "";
+        String mid_function = "";
         String parametersSQL = "SELECT args.name\n" +
                 "FROM args INNER JOIN functions ON args.func_id=functions.id\n" +
                 "WHERE functions.name=\'"+functionName+ "\' AND args.inout=1\n" +
@@ -203,27 +210,51 @@ public class ImportForm extends javax.swing.JPanel {
         }
         function = function.replaceAll("\t","    ");
         String [] functionList = function.split("\n");
-
-
-        String python_udf = "import pickle \nimport numpy \n\n\ndef " + functionName + parameters;
-        for (int i = 1; i < functionList.length-1; i ++){
-            python_udf+= "    " + functionList[i] + "\n";
-        }
-        python_udf += "\n\n" + "input_parameters = pickle.load(open(\'";
-        python_udf += ConnectionGlobal.path + functionName +".bin\',\'rb\')) \n";
-        python_udf += functionName + '(';
+        bottom_function += "\n\n" + "input_parameters = pickle.load(open(\'";
+        bottom_function += ConnectionGlobal.path + functionName +".bin\',\'rb\')) \n";
+        bottom_function += functionName + '(';
         for (int i = 0; i < parameterList.size(); i ++){
             if (i < parameterList.size() - 1){
-                python_udf+="input_parameters[\'";
-                python_udf += "arg"+Integer.toString(i+1)  + "\'], ";
+                bottom_function+="input_parameters[\'";
+                bottom_function += "arg"+Integer.toString(i+1)  + "\'], ";
+                column_arg_map.put(parameterList.get(i),"arg"+Integer.toString(i+1));
             }
             else{
-                python_udf += "input_parameters[\'";
-                python_udf += "arg"+Integer.toString(i+1) + "\'])";
+                bottom_function += "input_parameters[\'";
+                bottom_function += "arg"+Integer.toString(i+1) + "\'])";
+                column_arg_map.put(parameterList.get(i),"arg"+Integer.toString(i+1));
             }
         }
+//        arglist = "_columns, _column_types, _conn"
+//        cleaned_arguments = dict()
+//        for i in range(len(input_types)):
+//        argname = "arg%d" % (i + 1)
+//        if argname not in arguments:
+//        raise Exception("Argument %d not found!" % (i + 1))
+//        input_name = str(input_types[i][0])
+//        cleaned_arguments[] = arguments[argname]
+//        arglist += ", %s" % input_name
+//        cleaned_arguments['_columns'] = arguments['_columns']
+//        cleaned_arguments['_column_types'] = arguments['_column_types']
+//        String specialParameters[] = {"_conn","_columns","_columntypes"};
+
+        for (int i = 1; i < functionList.length-1; i ++){
+            if(functionList[i].contains("_conn")){
+                loopBackQuery = true;
+                mid_function+= "    " + functionList[i] + ".fetchall()" + "\n";
+
+            }
+            else
+                mid_function+= "    " + functionList[i] + "\n";
+        }
+        if(loopBackQuery)
+            top_function ="import pickle \n import pymonetdb \n connection = pymonetdb.connect(username=\""+ConnectionGlobal.user+"\", password=\""+ConnectionGlobal.password+"\",\n" +
+                    "hostname=\""+ConnectionGlobal.host+"\", database=\""+ ConnectionGlobal.database+"\") \n _conn = connection.cursor()\n def " + functionName + parameters;
+        else
+            top_function = "import pickle \n \n \ndef " + functionName + parameters;
+
         PrintWriter writer = new PrintWriter(ConnectionGlobal.path + functionName+ ".py", "UTF-8");
-        writer.println(python_udf);
+        writer.println(top_function+mid_function+bottom_function);
         writer.close();
 
     }
